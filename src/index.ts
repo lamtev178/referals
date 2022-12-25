@@ -3,8 +3,7 @@ import TelegramBot from "node-telegram-bot-api";
 import { dataBase } from "./db/index";
 import referals from "./models/referal";
 import { refRouter } from "./routes/refRouter";
-const TOKEN =
-  process.env.TOKEN || "5860284401:AAEEumk54nwbeTIIPebhewnqZYQxDN00X6A";
+const TOKEN = process.env.TOKEN || "YOUR_TELEGRAM_BOT_TOKEN";
 const PORT = process.env.PORT || "8080";
 const app = express();
 app.use(express.json());
