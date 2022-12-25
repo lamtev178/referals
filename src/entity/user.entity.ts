@@ -4,7 +4,7 @@ import { Link } from "./link.entity";
 @Entity()
 export class User {
   @PrimaryColumn()
-  id: string;
+  id: number;
   @OneToMany(() => Link, (link) => link.user)
   links: Link[];
 }

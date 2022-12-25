@@ -9,9 +9,9 @@ refRouter.get("/users", async (req, res) => {
 });
 refRouter.get("/my-refs", async (req, res) => {
   try {
-    const user = req.query.user as string;
+    const user = req.query.user;
     if (!user) throw new Error("user is required");
-    res.send({ referals: await referals.getMyReferrals(user) });
+    res.send({ referals: await referals.getMyReferrals(+user) });
   } catch (err: any) {
     res.status(400).send({ error: err.message });
   }
