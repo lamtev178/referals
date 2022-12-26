@@ -4,7 +4,7 @@ import { Link } from "./link.entity";
 @Entity()
 export class Refer {
   @PrimaryColumn()
-  id: string;
+  id: number;
   @ManyToOne(() => Link, (link) => link.id)
   link: Link;
 }

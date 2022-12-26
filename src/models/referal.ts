@@ -16,7 +16,7 @@ class ReferalsController {
     return await dataBase.manager.find(Refer);
   }
 
-  async createLink(userId: string) {
+  async createLink(userId: number) {
     const user = new User();
     user.id = userId;
     await dataBase.manager.save(user);
@@ -27,7 +27,7 @@ class ReferalsController {
     return link.id;
   }
 
-  async startReferral(linkId: string, userId: string) {
+  async startReferral(linkId: string, userId: number) {
     const refer = new Refer();
     const link = await dataBase
       .createQueryBuilder(Link, "link")
@@ -45,17 +45,17 @@ class ReferalsController {
     throw new Error("link is not valid");
   }
 
-  async getMyLinks(userId: string) {
+  async getMyLinks(userId: number) {
     const user = await dataBase
       .createQueryBuilder(User, "user")
       .leftJoinAndSelect("user.links", "links")
       .where("user.id = :userId", { userId })
       .getOne();
-    if (!user) throw new Error("no such user");
+    if (!user) throw new Error("no refs for this user");
     return user?.links;
   }
 
-  async getMyReferrals(userId: string) {
+  async getMyReferrals(userId: number) {
     const myRefs: Record<string, Refer[]> = {};
     const userLinks = await this.getMyLinks(userId);
 
@@ -76,13 +76,12 @@ class ReferalsController {
     return myRefs;
   }
 
-  async payReferrer(userId: string) {
+  async payReferrer(userId: number) {
     const linkSale = await dataBase
       .createQueryBuilder(Refer, "refer")
       .leftJoinAndSelect("refer.link", "link")
       .where("refer.id = :id", { id: userId })
       .getOne();
-    console.log("linkSale", linkSale);
 
     if (linkSale && linkSale.link) return linkSale.link.sale;
     return 0;
