@@ -82,7 +82,6 @@ class ReferalsController {
       .leftJoinAndSelect("refer.link", "link")
       .where("refer.id = :id", { id: userId })
       .getOne();
-    console.log("linkSale", linkSale);
 
     if (linkSale && linkSale.link) return linkSale.link.sale;
     return 0;
