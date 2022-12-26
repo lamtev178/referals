@@ -23,6 +23,7 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_BASE_NAME=referals
+      - POSTGRES_PORT=5432
       - PORT=8080
     build:
       dockerfile: Dockerfile
